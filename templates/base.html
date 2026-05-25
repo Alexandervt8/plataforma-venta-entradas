@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Boletix - Venta de Entradas{% endblock %}</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome para íconos premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Archivo CSS del Proyecto -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar" id="main-navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('index') }}" class="navbar-brand">
+                <i class="fa-solid fa-ticket-simple"></i> Boletix
+            </a>
+            <div class="navbar-menu">
+                <a href="{{ url_for('index') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                    <i class="fa-solid fa-calendar-days"></i> Eventos
+                </a>
+                
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('tickets') }}" class="nav-link {% if request.path == '/tickets' %}active{% endif %}">
+                        <i class="fa-solid fa-receipt"></i> Mis Entradas
+                    </a>
+                    <span class="nav-link" style="color: var(--text-main);">
+                        <i class="fa-solid fa-circle-user" style="color: var(--secondary);"></i> Hola, {{ session.get('user_name') }}
+                    </span>
+                    <a href="{{ url_for('logout') }}" class="nav-btn nav-btn-outline" style="border-color: var(--error); color: var(--error);">
+                        <i class="fa-solid fa-right-from-bracket"></i> Salir
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-btn nav-btn-outline">
+                        Iniciar Sesión
+                    </a>
+                    <a href="{{ url_for('register') }}" class="nav-btn nav-btn-primary">
+                        Registrarse
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <!-- Mostrar Mensajes Flash de Flask -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            <span>
+                                {% if category == 'success' %}
+                                    <i class="fa-solid fa-circle-check"></i>
+                                {% elif category == 'danger' or category == 'error' %}
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                {% endif %}
+                                {{ message }}
+                            </span>
+                            <button class="flash-close"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Bloque de Contenido para Vistas Heredadas -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Boletix Inc. - Plataforma de Venta de Entradas MVP. Diseñado con fines académicos para pruebas de calidad de software.</p>
+    </footer>
+
+    <!-- JavaScript del Proyecto -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

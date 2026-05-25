@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Comprar Entradas | Boletix{% endblock %}
+
+{% block content %}
+<div class="purchase-detail-container">
+    <div class="purchase-event-banner" style="background-image: url('{{ event.image_url }}');">
+        <div class="purchase-event-overlay"></div>
+        <div class="purchase-event-title-overlay">
+            <h2 style="font-size: 1.8rem; color: #ffffff;">{{ event.title }}</h2>
+        </div>
+    </div>
+    
+    <div class="purchase-body">
+        <div class="event-info-item" style="font-size: 1rem; margin-bottom: 0.8rem;">
+            <i class="fa-solid fa-calendar-day"></i>
+            <span><strong>Fecha:</strong> {{ event.date }}</span>
+        </div>
+        <div class="event-info-item" style="font-size: 1rem; margin-bottom: 0.8rem;">
+            <i class="fa-solid fa-location-dot"></i>
+            <span><strong>Lugar:</strong> {{ event.location }}</span>
+        </div>
+        <div class="event-info-item" style="font-size: 1rem; margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>
+                <strong>Stock Disponible:</strong> 
+                <span id="event-stock" data-stock="{{ event.stock }}">{{ event.stock }}</span> entradas
+            </span>
+        </div>
+        
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">
+            {{ event.description }}
+        </p>
+        
+        <form action="{{ url_for('purchase', event_id=event.id) }}" method="POST" id="purchase-form">
+            <div class="form-group">
+                <label for="purchase-quantity" class="form-label">Cantidad de Entradas</label>
+                <!-- Permitimos tipo number pero validaremos tanto en JS como obligatoriamente en backend -->
+                <input type="number" name="quantity" id="purchase-quantity" class="form-control" value="1" min="1" step="1">
+                <div class="form-error-text" id="quantity-error" style="display: none;"></div>
+            </div>
+            
+            <div class="ticket-calc-box">
+                <div class="calc-row">
+                    <span>Precio Unitario</span>
+                    <span id="price-per-ticket" class="price-accent" data-price="{{ event.price }}">S/ {{ "%.2f" | format(event.price) }}</span>
+                </div>
+                <div class="calc-row">
+                    <span>Cantidad</span>
+                    <span>x <span id="quantity-summary">1</span></span>
+                </div>
+                <div class="calc-row total">
+                    <span>Total a Pagar</span>
+                    <span id="total-price" class="price-accent">S/ {{ "%.2f" | format(event.price) }}</span>
+                </div>
+            </div>
+            
+            <button type="submit" class="form-btn-submit" id="purchase-btn">
+                <i class="fa-solid fa-credit-card"></i> Confirmar Compra
+            </button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="{{ url_for('index') }}" style="color: var(--text-muted); font-size: 0.9rem; transition: var(--transition-smooth);" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-muted)'">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Eventos
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

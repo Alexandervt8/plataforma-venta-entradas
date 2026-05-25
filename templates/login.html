@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión | Boletix{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2 class="form-title">Bienvenido de nuevo</h2>
+        <p class="form-subtitle">Ingresa tus credenciales para acceder a tu panel.</p>
+    </div>
+    
+    <form action="{{ url_for('login') }}" method="POST" id="login-form" novalidate>
+        <div class="form-group">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="juan.perez@example.com" value="{{ request.form.get('email', '') }}">
+            <div class="form-error-text" id="email-error"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Tu contraseña">
+            <div class="form-error-text" id="password-error"></div>
+        </div>
+        
+        <button type="submit" class="form-btn-submit" id="btn-submit-login">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+        </button>
+    </form>
+    
+    <div class="form-footer-link">
+        ¿Aún no tienes cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    </div>
+</div>
+{% endblock %}

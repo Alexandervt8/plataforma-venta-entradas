@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Cartelera de Eventos | Boletix{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <h1 class="hero-title">Encuentra tus eventos favoritos</h1>
+    <p class="hero-subtitle">Compra entradas oficiales al instante de forma segura y rápida.</p>
+</div>
+
+<!-- Buscador de Eventos -->
+<div class="search-container">
+    <form action="{{ url_for('index') }}" method="GET" class="search-form">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted); margin-right: 0.5rem;"></i>
+        <input type="text" name="q" class="search-input" placeholder="Buscar por título, lugar o descripción..." value="{{ query }}">
+        {% if query %}
+            <a href="{{ url_for('index') }}" style="margin-right: 1rem; color: var(--text-muted); font-size: 0.9rem;" title="Limpiar búsqueda">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </a>
+        {% endif %}
+        <button type="submit" class="search-btn">Buscar</button>
+    </form>
+</div>
+
+<!-- Listado de Eventos (Grid) -->
+{% if events %}
+    <div class="events-grid">
+        {% for event in events %}
+            <div class="event-card">
+                <div class="event-image-container">
+                    <img src="{{ event.image_url }}" alt="{{ event.title }}" class="event-image">
+                    <span class="event-price-tag">S/ {{ "%.2f" | format(event.price) }}</span>
+                </div>
+                
+                <div class="event-body">
+                    <h3 class="event-title">{{ event.title }}</h3>
+                    <p class="event-desc">{{ event.description }}</p>
+                    
+                    <div class="event-info-item">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <span>{{ event.date }}</span>
+                    </div>
+                    <div class="event-info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>{{ event.location }}</span>
+                    </div>
+                    <div class="event-info-item">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        {% if event.stock > 10 %}
+                            <span>Stock disponible: <strong>{{ event.stock }}</strong></span>
+                        {% elif event.stock > 0 %}
+                            <span class="event-stock-low">¡Últimas entradas! Quedan: <strong>{{ event.stock }}</strong></span>
+                        {% else %}
+                            <span class="event-stock-out">Agotado</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="event-footer">
+                        {% if event.stock > 0 %}
+                            <a href="{{ url_for('purchase', event_id=event.id) }}" class="btn-buy">
+                                <i class="fa-solid fa-ticket"></i> Comprar Entradas
+                            </a>
+                        {% else %}
+                            <button class="btn-buy" disabled>
+                                <i class="fa-solid fa-ban"></i> Agotado
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="no-tickets-msg" style="max-width: 600px; margin: 0 auto;">
+        <i class="fa-solid fa-calendar-xmark"></i>
+        <h3>No se encontraron eventos</h3>
+        <p style="margin-top: 0.5rem;">No hay eventos activos que coincidan con tu búsqueda <strong>"{{ query }}"</strong>.</p>
+        <a href="{{ url_for('index') }}" class="nav-btn nav-btn-primary" style="margin-top: 1.5rem; display: inline-block;">
+            Ver todos los eventos
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
