@@ -106,16 +106,16 @@ El parámetro `-v` (verbose) mostrará el detalle de cada prueba unitaria que se
 ## Capturas del Sistema
 
 ### Página principal
-![Página principal](./boletix.png)
+![Página principal](./img/boletix.png)
 
 ### Inicio de sesión
-![Login](./login.png)
+![Login](./img/login.png)
 
 ### Registro de usuario
-![Registro](./creacion-usuario.png)
+![Registro](./img/creacion-usuario.png)
 
 ### Compra de entradas
-![Compra de entrada](./compra-entrada.png)
+![Compra de entrada](./img/compra-entrada.png)
 
 ### Entradas adquiridas
-![Entradas adquiridas](./entrada-adquirida.png)
+![Entradas adquiridas](./img/entrada-adquirida.png)
