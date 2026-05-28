@@ -101,3 +101,21 @@ pytest -v
 ```
 
 El parámetro `-v` (verbose) mostrará el detalle de cada prueba unitaria que se está certificando.
+
+
+## Capturas del Sistema
+
+### Página principal
+![Página principal](./boletix.png)
+
+### Inicio de sesión
+![Login](./login.png)
+
+### Registro de usuario
+![Registro](./creacion-usuario.png)
+
+### Compra de entradas
+![Compra de entrada](./compra-entrada.png)
+
+### Entradas adquiridas
+![Entradas adquiridas](./entrada-adquirida.png)
