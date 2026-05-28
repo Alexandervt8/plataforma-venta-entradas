@@ -99,7 +99,7 @@ Para ejecutar todas las pruebas unitarias, corre el siguiente comando en tu term
 ```bash
 pytest -v
 ```
-
+![prueba con pytest](./img/test-pytest.png)
 El parámetro `-v` (verbose) mostrará el detalle de cada prueba unitaria que se está certificando.
 
 
