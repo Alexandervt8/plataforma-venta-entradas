@@ -38,9 +38,15 @@ PLATAFORMA-VENTA-ENTRADAS/
 │   │   └── style.css           # Estilos estéticos premium y animaciones
 │   └── js/
 │       └── main.js             # Validaciones en cliente e interactividad
-└── tests/                      # Suite de Pruebas Unitarias
-    ├── conftest.py             # Fixtures de pytest y base de datos aislada
-    └── test_app.py             # Casos de prueba reales
+└── tests/                           # Suite de Pruebas Unitarias y Funcionales
+    ├── conftest.py                  # Fixtures de pytest, datos de prueba y base de datos aislada
+    ├── test_rf01_register.py        # RF-01: Registro de Usuarios
+    ├── test_rf02_login.py           # RF-02: Inicio de Sesión / Autenticación
+    ├── test_rf03_events.py          # RF-03: Listado de Eventos
+    ├── test_rf04_search.py          # RF-04: Búsqueda de Eventos
+    ├── test_rf05_purchase.py        # RF-05: Compra de Entradas
+    ├── test_rf06_transactions.py    # RF-06: Control de Transacciones
+    └── test_rf07_tickets.py         # RF-07: Historial de Entradas / Mis Entradas
 ```
 
 ---
